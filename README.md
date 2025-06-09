@@ -13,7 +13,7 @@ See the Jupyter Notebook or HTML files in the `docs` folder for tutorials and do
 
 ## Installation
 1. Download the GitHub repository and save the algorithms somewhere on your PC.
-2. Use the `include` function to import the algorithms within your Julia scripts. For example: `include(donarummo_classificaiton.jl)`. Note that the algorithm files will need to be on the search path for this to work.
+2. Use the `include` function to import the algorithms within your Julia scripts. For example: `include("donarummo_classificaiton.jl")`. Note that the algorithm files will need to be on the search path for this to work.
 
 
 ## Disclaimer
