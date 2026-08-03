@@ -153,7 +153,7 @@ function kutuzov_classification(df)
 			expression3 = (Mg.+Fe)./Si
 			condition3 = (expression3.>0.275) .& (expression3.<1.6)
 			expression4 = Ca./Si
-			criteria4 = (expression4.>0.3) .& (expression4.<2.0)
+			condition4 = (expression4.>0.3) .& (expression4.<2.0)
 			# Combine all conditions
 			index = condition1 .& condition2 .& condition3 .& condition4
 			return index
@@ -168,7 +168,7 @@ function kutuzov_classification(df)
 			expression2 = (Ca./Si)
 			condition2 = (expression2.>0.25) .& (expression2.<1.0)
 			expression3 = (Mg./Si)
-			condition2 = (expression3.>0.25) .& (expression3.<1.0)
+			condition3 = (expression3.>0.25) .& (expression3.<1.0)
 			# Combine all conditions
 			index = condition1 .& condition2 .& condition3
 			return index
@@ -194,6 +194,7 @@ function kutuzov_classification(df)
 		function check_fe_hornblende(T, classification_array)
 			# Extract columns from the DataFrame
 			Ca = T[:, :Ca]
+			Na = T[:, :Na]
 			Mg = T[:, :Mg]
 			Al = T[:, :Al]
 			Fe = T[:, :Fe]
@@ -201,9 +202,9 @@ function kutuzov_classification(df)
 			Ti = T[:, :Ti]
 			# Logical conditions
 			condition1 = (Ca.>0) .& (Al.>0) .& (Fe.>0) .& (Si.>0)
-			expression2 = (Fe.+(2.*Ti).+Al.+Mg)./Si
+			expression2 = (Fe.+(2 .* Ti).+Al.+Mg)./Si
 			condition2 = (expression2.>0.428) .& (expression2.<1.5)
-			expression3 = ((2.*Ca).+Na)./Si
+			expression3 = ((2 .* Ca).+Na)./Si
 			condition3 = (expression3.<1.0)
 			condition4 = (Mg./Si).<0.143
 			expression5 = (Al./Si)
@@ -224,7 +225,7 @@ function kutuzov_classification(df)
 			Ti = T[:, :Ti]
 			# Logical conditions
 			condition1 = (Ca.>0) .& (Al.>0) .& (Fe.>0) .& (Si.>0) .& (Mg.>0)
-			expression2 = (Fe.+(2.*Ti).+Al.+Mg)./Si
+			expression2 = (Fe.+(2 .* Ti).+Al.+Mg)./Si
 			condition2 = (expression2.>0.428) .& (expression2.<3.0)
 			condition3 = (Fe./Si).<0.143
 			expression4 = (Al./Si)
@@ -299,8 +300,11 @@ function kutuzov_classification(df)
 		end
 		function check_hypersthene(T, classification_array)
 			# Extract columns from the DataFrame
+			Na = T[:, :Na]
 			Mg = T[:, :Mg]
+			Al = T[:, :Al]
 			Si = T[:, :Si]
+			Ca = T[:, :Ca]
 			Fe = T[:, :Fe]
 			Ti = T[:, :Ti]
 			# Logical conditions
