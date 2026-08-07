@@ -3,7 +3,7 @@ Mineral classification scheme from Kutuzov et al. (2026)
 
 DESCRIPTION
 
-This function automates the mineral classification workflow published by Kutuzov et al. (2026, Table S5). Takes a table of energy dispersive spectrometry (EDS) atomic percentage data and assigns a mineralogy to each row. NOTE: While the Kutuzov algorithm was developed for element data collected with single particle ICP-TOFMS, the function here also works well for EDS data.
+This function automates the mineral classification workflow published by Kutuzov et al. (2026, Table S5). Takes a table of energy dispersive spectrometry (EDS) atomic fraction data and assigns a mineralogy to each row. NOTE: While the Kutuzov algorithm was developed for element data collected with single particle ICP-TOFMS, the function here also works well for EDS data.
 
 SYNTAX
 
@@ -72,6 +72,15 @@ function kutuzov_classification(df)
         if sum(in.(varnames, Ref(["Na","Mg","Al","Si","Ca","Ti","Fe"]))) != 7
             error("Input must be a DataFrame containing a column for Na, Mg, Al, Si, Ca, Ti, and Fe. Check the spellings of the column names. Only full element names and abbreviations are valid.")
         end
+
+		# Create a new DataFrame for just those elements
+		df_elements = df[:, [:Na,:Mg,:Al,:Si,:Ca,:Ti,:Fe]]
+
+		# Sum each row
+		df_row_sums = sum.(eachrow(df_elements))
+
+		# Overwrite df to be a DataFrame of atom fractions rather than atom percentages
+		df = df_elements ./ df_row_sums
 
 		# Define local functions
 		function mineral_classification(DF)
