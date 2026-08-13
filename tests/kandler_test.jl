@@ -1,5 +1,5 @@
 ## Import packages / functions
-using CategoricalArrays, CSV, DataFrames
+using CSV, DataFrames
 include("../algorithms/kandler_classification.jl");
 
 
@@ -7,7 +7,7 @@ include("../algorithms/kandler_classification.jl");
 atp = CSV.read("./data/eds_atom_percents.csv", DataFrame); 
 
 
-## Print first row to visualize the structure of the data 
+## Print the second row to visualize the structure of the data 
 display(atp[2,:])
 
 
