@@ -7,7 +7,7 @@
 
 ## 💡 About
 
-This repository hosts the Julia-equivalent functions from the original [`eds-classification`](https://github.com/weber1158/eds-classification) repository. The Julia functions have been migrated here so that Julia users do not need to sift through the 80+ files in the original repository (which is mostly for MATLAB users).
+This repository hosts several Julia-equivalent (or semi-equivalent) functions from the original [`eds-classification`](https://github.com/weber1158/eds-classification) repository. The Julia functions have been migrated here so that Julia users do not need to sift through the 80+ files in the original repository (which is mostly for MATLAB users).
 
 If you want the MATLAB version of this repository, please see the File Exchange submission here: [![View my project on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/170771)
 
