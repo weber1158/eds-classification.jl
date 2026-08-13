@@ -1,11 +1,25 @@
+"""
+    categorical_histogram(data::CategoricalArray; sortby=:label, normalization=:count, kwargs...)
+
+Histogram chart for categorical data
+
+This function requires the StatsBase.jl and Plots.jl packages; it uses Plots.bar() to create the visualization.
+
+# REQUIRED ARGUMENTS
+- `data` : Vector of categorical data 
+
+# OPTIONAL ARGUMENTS
+- `sortby` : Order of the histogram bars. Options include :alphabetical, :descend, :ascend. The default value is :alphabetical
+
+- `normalization` : Units of the y-axis. Options include :cdf, :count, :cumcount, :percentage, :probability. The default value is :count 
+
+- `kwargs` : Optional arguments used by the Plots.bar() function.
+
+# RETURNS
+- A visualization using Plots.bar() 
+
+"""
 function categorical_histogram(data_col; sortby=:label, normalization=:count, kwargs...)
-#
-# For plotting categorical data in a histogram-like fashion
-#
-# Required dependencies: 
-#  - StatsBase.jl 
-#  - Plots.jl
-#
 	counts = StatsBase.countmap(data_col);
 	if (sortby == :alphabetical) | (sortby == :alphabet)
 		sorted_pairs = sort(collect(counts), by = x -> x[1]);

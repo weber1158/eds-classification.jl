@@ -1,53 +1,36 @@
 """
+    kutuzov_classification(data::DataFrame)
+
 Mineral classification scheme from Kutuzov et al. (2026)
 
-DESCRIPTION
+Takes a DataFrame of EDS atom percent data for the elements Na, Mg, Al, Si, Ca, Ti, and Fe, then it runs through a series of comparative criteria checks to assign a mineralogy to each row. More accurately, the Kutuzov algorithm deals with atom fractions, but this function has been written to normalize the elemental data to sum to 1 automatically. Note that the Kutuzov algorithm was originally created for the analysis of data collected with single particle ICP-TOFMS, not SEM-EDS. However, in general it also works well with EDS data.
 
-This function automates the mineral classification workflow published by Kutuzov et al. (2026, Table S5). Takes a table of energy dispersive spectrometry (EDS) atomic fraction data and assigns a mineralogy to each row. NOTE: While the Kutuzov algorithm was developed for element data collected with single particle ICP-TOFMS, the function here also works well for EDS data.
+# REQUIRED ARGUMENTS
+- `data` :: DataFrame containing a column for each of the following elements: Na, Mg, Al, Si, Ca, Ti, and Fe. The name of each column may be the full element name or its abbreviation. For instance, "Silicon" and "Si" are valid table variable names. Both the American and British spelling of "Aluminum" ("Aluminium") are also valid. Capitalization is not required by spelling is paramount. The values in the table should represent the measured atom percent for each element.
 
-SYNTAX
+# RETURNS
+A `DataFrame` containing the mineral assignments for each row in the input DataFrame. The list of possible mineral assignments is given below:
 
-minerals = kutuzov_classification(df)
+1. Phyllosilicate (clay minerals and mica)
+2. Augite (clinopyroxene, high Ca)
+3. Diopside (clinopyroxene, low Fe)
+4. Pigeonite (orthopyroxene, low Ca)
+5. High-Fe Hornblende (amphibole)
+6. High-Mg Hornblende (amphibole)
+7. Chlorite (clay mineral)
+8. Kaolinite (clay mineral)
+9. Albite (Feldspar, Na endmember)
+10. Anorthite (Feldspar, Ca endmember)
+11. Hypersthene (orthopyroxene, a variety of enstatite; high Mg)
+12. Quartz (SiO2)
+13. Ca-dominant (calcite, apatite, fluorite, etc.)
+14. Fe-dominant (hematite, goethite, magnetite, etc.)
+15. Unknown (does not match any of the known criteria)
 
-INPUT
-
-"df" :: DataFrame containing a column for each of the following elements: Na, Mg, Al, Si, Ca, Ti, and Fe. The name of each column may be the full element name or its abbreviation. For instance, "Silicon" and "Si" are valid table variable names. Both the American and British spelling of "Aluminum" ("Aluminium") are also valid. Capitalization is not required by spelling is paramount. The values in the table should represent the measured net intensity for each element.
-
-OUTPUT
-
-"minerals" :: DataFrame of general mineral classes corresponding to each row in the input DataFrame.
-
-LIST OF POSSIBLE MINERAL CLASSIFICATIONS
-
-  _____________________________________________________________________
-  MINERAL             | DESCRIPTION
-  =====================================================================
-  Phyllosilicate      | Clay minerals and mica
-  Augite              | Clinopyroxene (high Ca)
-  Diopside            | Clinopyroxene (low Fe)
-  Pigeonite           | Orthopyroxene (low Ca)
-  High-Fe Hornblende  | Amphibole
-  High-Mg Hornblende  | Amphibole
-  Chlorite            | Clay mineral
-  Kaolinite           | Clay mineral
-  Albite              | Feldspar (Na end member)
-  Anorthite           | Feldspar (Ca end member)
-  Hypersthene         | Orthopyroxene (a variety of enstatite; high Mg)
-  Quartz              | Quartz (SiO2)
-  Ca-dominant         | Calcite, Apatite, Fluorite, etc.
-  Fe-dominant         | Hematite, Goethite, Magnetite, etc.
-  Unknown             | does not match any of the known criteria
-
-LIMITATIONS
-
-This function will misclassify any mineral not present in the list above. For instance, element data for titantite will never be classified as titanite. To maximize the usefulness of this algorithm the user should also consult the results of additional classification methods.
-
-REFERENCE
-
+# REFERENCE
 Kutuzov, S., Olesik, J., Lomax-Vogt, M., Carter, L., Lowry, G., Bland, G., Wielinski, J., Sullivan, R., & Gabrielli, P. (2026). Geochemical characterization of millions of individual atmospheric particles entrapped in Antarctic ice across the last glacial-interglacial transition. Scientific Reports, 16(1), 10556. https://doi.org/10.1038/s41598-026-45260-3
 
 """
-
 function kutuzov_classification(df)
     # Check that input is a DataFrame
         @assert typeof(df) == DataFrame "Input must be a DataFrame"
