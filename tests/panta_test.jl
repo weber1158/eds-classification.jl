@@ -1,5 +1,5 @@
 ## Import packages / functions
-using CategoricalArrays, CSV, DataFrames
+using CSV, DataFrames
 include("../algorithms/panta_classification.jl");
 
 
