@@ -1,5 +1,5 @@
 ## Import packages / functions
-using CategoricalArrays, CSV, DataFrames
+using CSV, DataFrames
 include("../algorithms/donarummo_classification.jl");
 
 
@@ -7,7 +7,7 @@ include("../algorithms/donarummo_classification.jl");
 net = CSV.read("./data/eds_net_intensities.csv", DataFrame); 
 
 
-## Print first row to visualize the structure of the data 
+## Print the second row to visualize the structure of the data 
 display(net[2,:])
 
 
