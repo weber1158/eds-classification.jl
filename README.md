@@ -1,7 +1,7 @@
 # 🪨 Algorithms for SEM-EDS Mineral Dust Classification
 [![License: MIT](https://img.shields.io/badge/License-MIT-FE4365.svg?style=flat-square)](LICENSE)
 [![Julia v1.12.6](https://img.shields.io/badge/Julia-1.12.6-FC9D9A.svg?style=flat-square)](https://julialang.org)
-[![Documentation](https://img.shields.io/badge/Documentation-Markdown-C8C8A9.svg?style=flat-square)](docs/eds.jl_docs.md)
+[![Documentation](https://img.shields.io/badge/Documentation-Markdown-C8C8A9.svg?style=flat-square)](docs/eds_docs.md)
 [![Contributing](https://img.shields.io/badge/Contributions-Welcome-83AF9B.svg?style=flat-square)](CONTRIBUTING.md)
 [![status](https://joss.theoj.org/papers/c2564d4c44b4ee77c24ac32f7431a6b2/status.svg)](https://joss.theoj.org/papers/c2564d4c44b4ee77c24ac32f7431a6b2)
 
