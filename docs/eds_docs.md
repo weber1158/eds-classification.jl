@@ -1,81 +1,89 @@
 # **Documentation** for `eds-classification.jl`
 
-## Load dependencies
+## Import pacakges and functions
 
 ````julia
-using CSV
-using DataFrames
-using StatsBase
-using Plots
+using CSV, DataFrames, Serialization, DecisionTree, MLJ
+using StatsBase, Plots
+include("./algorithms/edsClassification.jl");
+include("./algorithms/categorical_histogram.jl");
 ````
 
-## Add mineral classification algorithms to the path
+## Check docstrings for a function
+Replace the function name as needed.
 
 ````julia
-include("donarummo_classification.jl");
-include("kandler_classification.jl");
-include("kutuzov_classification.jl");
-include("panta_classification.jl");
+println(@doc weber_classification)
 ````
 
-## Add visualization function to the path
+## Load example EDS data sets
 
 ````julia
-include("categorical_histogram.jl")
+net = CSV.read("./data/eds_net_intensities.csv", DataFrame);
+atp = CSV.read("./data/eds_atom_percents.csv", DataFrame);
 ````
 
-## Import example EDS net intensity and atom percent data
-The `donarummo_classification()` function requires EDS net intensity data, the `kandler_classification()` and `panta_classification()` functions require atom percent data, and the `kutuzov_classification()` function requires atom fraction data (although passing atom percent data works because the function automatically converts the data into fractional units).
-
-````julia
-net = CSV.read("eds_net_intensities.csv", DataFrame);
-atp = CSV.read("eds_atom_percents.csv", DataFrame);
-````
-
-## Apply the mineral classification algorithms to the appropriate data sets
+## Apply algorithms to the appropriate data set
 
 ````julia
 don = donarummo_classification(net);
 kan = kandler_classification(atp);
 kut = kutuzov_classification(atp);
 pan = panta_classification(atp);
+web = weber_classification(net);
 ````
 
-## Visualize the data
-### Donarummo algorithm
+## Visualize the mineral classification data
+### Donarummo
 
 ````julia
-categorical_histogram(don[:,1],
-  sortby=:descend,
-  xrotation=45
-)
+categorical_histogram(don[:,1], sortby=:descend, xrotation=45)
 ````
 
-### Kandler algorithm
+### Kandler
 
 ````julia
-categorical_histogram(kan[:,1],
-  sortby=:descend,
-  xrotation=45
-)
+categorical_histogram(kan[:,1], sortby=:descend, xrotation=45)
 ````
 
-### Kutuzov algorithm
+### Kutuzov
 
 ````julia
-categorical_histogram(kut[:,1],
-  sortby=:descend,
-  xrotation=45
-)
+categorical_histogram(kut[:,1], sortby=:descend, xrotation=45)
 ````
 
-### Panta algorithm
+### Panta
 
 ````julia
-categorical_histogram(pan[:,1],
-  sortby=:descend,
-  xrotation=45
-)
+categorical_histogram(pan[:,1], sortby=:descend, xrotation=45)
+````
+
+### Weber
+
+````julia
+categorical_histogram(web.predicted_class, sortby=:descend, xrotation=45)
+````
+
+## Printing outputs for the Weber algorithm
+### Example 1 - Find the mineral ID for an observation (i.e., row) and its associated probability score
+
+````julia
+observation = 485;
+println("Weber prediction for mineral #485: \n", web.predicted_class[observation], "\n\nProbabilities:\n")
+display(web.probabilities[observation,:])
+````
+
+### Example 2 - Compare the outputs of several algorithms
+
+````julia
+observation = 15;
+println("Predictions for mineral #15:")
+println("True mineral:    Albite")
+println("Weber pred.:     ", web.predicted_class[observation])
+println("Donarummo pred.: ", don[observation,1])
+println("Kandler pred.    ", kan[observation,1])
+println("Kutuzov pred.    ", kut[observation,1])
+println("Panta pred.      ", pan[observation,1])
 ````
 
 ---
