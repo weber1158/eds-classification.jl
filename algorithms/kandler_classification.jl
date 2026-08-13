@@ -1,34 +1,18 @@
 """
+    kandler_classification(data::DataFrame)
+
 Mineral classifcation scheme from Kandler et al. (2011)
 
-DESCRIPTION
+Takes a DataFrame of EDS atom percent data for the elements Na, Mg, Al, Si, P, S, Cl, K, Ca, Ti, Cr, Mn, and Fe, then it runs through a series of comparative criteria checks to assign a classification to each row. The Kandler algorithm does not attempt to assign a definitive mineralogy to each observation. This function is particularly useful for identifying sample mixtures or particles with mineral coatings.
 
-This function automates the mineral classification workflow published by Kandler et al. (2011). Takes a table of energy dispersive spectrometry (EDS) atomic percentage data and assigns a mineralogy to each row.
+# REQUIRED ARGUMENTS
+- `data` :: DataFrame containing a column for each of the following elements: Na, Mg, Al, Si, P, S, Cl, K, Ca, Ti, Cr, Mn, and Fe. The name of each column may be the full element name or its abbreviation. For instance, "Silicon" and "Si" are valid table variable names. Both the American and British spelling of "Aluminum" ("Aluminium") are also valid. Capitalization is not required by spelling is paramount. The values in the table should represent the measured atom percent for each element.
 
-SYNTAX
+# RETURNS
+A `DataFrame` containing the class assignments for each row in the input DataFrame. Note that the Kandler algorithm does not necessarily report mineral names. Rather, it returns generalized class names that represent the primary elemental composition for each observation (i.e., row) in the input DataFrame. For instance, the Kandler algorithm will return "SiAlNa" for a specimen of albite [NaAlSi3O8]. It does not attempt to assign a definitive mineralogy because the elemental compositions of certain minerals can be ambiguous.
 
-minerals = kandler_classification(df)
-
-INPUT
-
-"df" :: DataFrame containing a column for each of the following elements: Na, Mg, Al, Si, P, S, Cl, K, Ca, Ti, Cr, Mn, and Fe. The name of each column may be the full element name or its abbreviation. For instance, "Silicon" and "Si" are valid table variable names. Both the American and British spelling of "Aluminum" ("Aluminium") are also valid. Capitalization is not required by spelling is paramount. The values in the table should represent the measured net intensity for each element.
-
-OUTPUT
-
-"minerals" :: DataFrame of general mineral classes corresponding to each row in the input DataFrame.
-
-
-LIMITATIONS
-
-This function does not classify specific minerals but rather generalized mineral classes (e.g., "Complex sulfates"). To maximize the usefulness of this algorithm the user should also consult the results of additional classification methods.
-
-REFERENCE
-
-Kandler et al. (2011). Tellus B 63(4), 475–496. https://doi.org/10.1111/j.1600-0889.2011.00550.x
-
-COPYRIGHT
-
-©2024 Austin M. Weber - function code
+# REFERENCE
+Kandler et al. (2011). Tellus B 63(4), 475-496. https://doi.org/10.1111/j.1600-0889.2011.00550.x
 
 """
 function kandler_classification(df)

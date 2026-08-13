@@ -1,24 +1,16 @@
 """
+    panta_classification(data::DataFrame)
+
 Mineral classifcation scheme from Panta et al. (2023)
 
-DESCRIPTION
+Takes a DataFrame of EDS atom percent data for the elements F, Na, Mg, Al, Si, P, S, Cl, K, Ca, Ti, Cr, Mn, and Fe, then it runs through a series of comparative criteria checks to assign a mineralogy to each row. 
 
-This function automates the mineral classification workflow published by Panta et al. (2023). Takes a table of energy dispersive spectrometry (EDS) atomic percentage data and assigns a mineralogy to each row.
+# REQUIRED ARGUMENTS
+- `data` :: DataFrame containing a column for each of the following elements: F, Na, Mg, Al, Si, P, S, Cl, K, Ca, Ti, Cr, Mn, and Fe. The name of each column may be the full element name or its abbreviation. For instance, "Silicon" and "Si" are valid table variable names. Both the American and British spelling of "Aluminum" ("Aluminium") are also valid. Capitalization is not required by spelling is paramount. The values in the table should represent the measured atom percent for each element.
 
-SYNTAX
+# RETURNS
 
-minerals = panta_classification(df)
-
-INPUT
-
-"df" :: DataFrame containing a column for each of the following elements: F, Na, Mg, Al, Si, P, S, Cl, K, Ca, Ti, Cr, Mn, and Fe. The name of each column may be the full element name or its abbreviation. For instance, "Silicon" and "Si" are valid table variable names. Both the American and British spelling of "Aluminum" ("Aluminium") are also valid. Capitalization is not required by spelling is paramount. The values in the table should represent the measured net intensity for each element.
-
-OUTPUT
-
-"minerals" :: DataFrame of general mineral classes corresponding to each row in the input DataFrame.
-
-
-LIST OF POSSIBLE MINERAL CLASSIFICATIONS
+A `DataFrame` containing the mineral assignments for each row in the input DataFrame. The list of possible mineral assignments is given below:
 
  1. Albite
  2. Alunite
@@ -38,25 +30,14 @@ LIST OF POSSIBLE MINERAL CLASSIFICATIONS
 16. Quartz
 17. Rutile
 18. Smectite
+19. Ca-rich silicate/Ca-Si-mix 
+20. Complex clay
+21. Complex feldspar 
+22. Complex quartz 
+23. Complex sulfate
 
-The algorithm also has classifications for:
-- Ca-rich silicate/Ca-Si-mix
-- Complex clay
-- Complex feldspar
-- Complex quartz
-- Complex sulfate
-
-LIMITATIONS
-
-This function will misclassify any mineral not present in the list above. For instance, atom percent data for a mineral in pyroxene family will not be classified as a pyroxene because the original algorithm was not written to recognize pyroxenes. To maximize the usefulness of this algorithm the user should also consult the results of additional classification methods.
-
-REFERENCE
-
+# REFERENCE
 Panta et al. (2023). Atmospheric Chemistry and Physics 23, 3861-3885. https://doi.org/10.5194/acp-23-3861-2023
-
-COPYRIGHT
-
-©2024 Austin M. Weber - function code
 
 """
 function panta_classification(df)
