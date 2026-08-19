@@ -5,6 +5,9 @@
 [![Contributing](https://img.shields.io/badge/Contributions-Welcome-83AF9B.svg?style=flat-square)](CONTRIBUTING.md)
 [![status](https://joss.theoj.org/papers/c2564d4c44b4ee77c24ac32f7431a6b2/status.svg)](https://joss.theoj.org/papers/c2564d4c44b4ee77c24ac32f7431a6b2)
 
+[![GitHub Repo stars](https://img.shields.io/github/stars/weber1158/eds-classification)](https://img.shields.io/github/stars/weber1158/eds-classification)
+
+
 ## 💡 About
 
 This repository hosts several Julia-equivalent (or semi-equivalent) functions from the original [`eds-classification`](https://github.com/weber1158/eds-classification) repository. The Julia functions have been migrated here so that Julia users do not need to sift through the 80+ files in the original repository (which is mostly for MATLAB users).
